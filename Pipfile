@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-requests = "*"
 
 [dev-packages]
 pymongo = "*"
@@ -20,7 +19,6 @@ types-requests = "*"
 hatch = "*"
 twine = "*"
 pytest-cov = "*"
+requests = "*"
 typing-extensions = "*"
-
-[requires]
-python_version = "3.8"
+build = "*"

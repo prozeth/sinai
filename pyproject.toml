@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sinai"
-description = "Monitor anything e.g. application state, data integrity."
+description = "Your friendly neighbourhood monitoring library. Record metrics about whatever you are interested in (e.g. application state, data integrity)."
 readme = "README.md"
 license = "MIT"
 authors = [

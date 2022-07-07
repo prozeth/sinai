@@ -1,5 +1,12 @@
-"""The Api adaptors provide sources and stores using API endpoints."""
-import requests  # type: ignore
+"""The Api adaptors provide sources and stores using API endpoints.
+Requires the requests library to be installed.
+"""
+try
+    import requests  # type: ignore
+except ImportError:
+    HAS_REQUESTS = False
+else:
+    HAS_REQUESTS = True
 
 from sinai.exceptions import SourceError
 from sinai.models.source import Source
@@ -29,6 +36,8 @@ class ApiSource(Source):
 
     def __init__(self, monitor: MonitorInstance):
         super().__init__(monitor)
+        if not HAS_REQUESTS:
+            raise SourceError("Requests library required for API calls.")
         self.get()
 
     def get_headers(self) -> RequestHeader:
