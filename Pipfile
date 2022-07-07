@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+
+[dev-packages]
+pymongo = "*"
+mypy = "*"
+pytest = "*"
+black = "*"
+flake8 = "*"
+isort = "*"
+pre-commit = "*"
+ipython = "*"
+mongomock = "*"
+types-requests = "*"
+hatch = "*"
+twine = "*"
+pytest-cov = "*"
+typing-extensions = "*"
+
+[requires]
+python_version = "3.8"
