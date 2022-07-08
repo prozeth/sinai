@@ -11,3 +11,9 @@ class SourceError(Exception):
     """The Source did not return the required result."""
 
     ...
+
+
+class DependencyMissing(Exception):
+    """Missing a dependency to use an optional feature."""
+
+    ...

@@ -1,8 +1,9 @@
 import mongomock
 
-from sinai.adaptors.mongo import MongoMetricSource, MongoSource, MongoStore
-from sinai.models.metric import Metric
-from sinai.models.monitor import Monitor
+from sinai.stores import MongoMetricStore
+from sinai.sources import MongoMetricSource, MongoSource
+from sinai.metrics.base import Metric
+from sinai.monitors.monitor import Monitor
 
 
 @mongomock.patch(servers=(("localhost", 27017),))
@@ -11,7 +12,7 @@ def test_mongo_store_save():
     monitor = Monitor()
     ref = "A-meaningful-id"
     metric = Metric(name="simple-save", ref=ref, value=52)
-    store = MongoStore(monitor)
+    store = MongoMetricStore(monitor)
     # When we save the metric
     store.save_metric(metric),
     # Then it is in the store
@@ -31,7 +32,7 @@ def test_mongo_store_upsert():
     ref = "relevant-to-your-app"
     metric = UpdatableMetric(ref=ref, value=1)
     monitor = Monitor()
-    store = MongoStore(monitor)
+    store = MongoMetricStore(monitor)
     store.save_metric(metric)
 
     # When we update the metric
@@ -50,7 +51,7 @@ def test_mongo_store_upsert():
 def test_mongo_source_find_one():
     # Given we have stored data
     monitor = Monitor()
-    store = MongoSource(monitor)
+    store = MongoMetricSource(monitor)
     store.db["animals"].insert_one(
         {
             "name": "mule",
@@ -70,7 +71,7 @@ def test_mongo_source_find_one():
 def test_mongo_source_find():
     # Given we have stored data
     monitor = Monitor()
-    store = MongoSource(monitor)
+    store = MongoMetricSource(monitor)
     store.db["animals"].insert_many(
         [
             {
@@ -109,7 +110,7 @@ def test_mongo_metric_source_get():
     red_label = DrinkMetric(ref="breakfast-tea", value=2)
     bovril = DrinkMetric(ref="beef-tea", value=4)
 
-    store = MongoStore(monitor)
+    store = MongoMetricStore(monitor)
     store.save_metric(red_label)
     store.save_metric(bovril)
 

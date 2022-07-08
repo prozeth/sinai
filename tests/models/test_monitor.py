@@ -1,10 +1,10 @@
-from sinai.models.monitor import Monitor
-from sinai.models.rule import Rule
-from sinai.models.store import Store
+from sinai.monitors.monitor import Monitor
+from sinai.rules.base import Rule
+from sinai.stores import MemoryMetricStore
 
 
 def test_monitor():
     class TestMonitor(Monitor):
         rules = [Rule]
         sources = []
-        stores = [Store]
+        stores = [MemoryMetricStore]

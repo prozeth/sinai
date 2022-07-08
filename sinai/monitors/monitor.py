@@ -9,13 +9,10 @@ stores commandment outcome and stores metrics)
 from collections.abc import Iterable
 from uuid import uuid4
 
-from sinai.models.metric import Metric
-from sinai.models.rule import Rule
+from sinai.metrics import Metric
+from sinai.rules import Rule
 from sinai.types import (
     Evaluation,
-    GlobalMemory,
-    JDict,
-    MetricDict,
     RuleClass,
     RuleClasses,
     SourceClass,
@@ -38,7 +35,6 @@ class Monitor:
         self.stores: StoreClassSet = set()
         self._store_instances: StoreDict = {}
         self._source_instances: SourceDict = {}
-        self.memory: GlobalMemory = {}  # Used for in memory store/source
         self._resolve_rules()
 
     def _resolve_rules(self) -> None:
@@ -71,8 +67,8 @@ class Monitor:
 
     def execute(self) -> None:
         """Start monitoring."""
-        self._connect_sources()
         self._connect_stores()
+        self._connect_sources()
         self._evaluate_rules()
 
     def source(self, source: SourceClass) -> SourceInstance:
@@ -84,14 +80,3 @@ class Monitor:
         for store_class in rule.stores:
             store = self._store_instances[store_class]
             store.save_metric(metric)
-
-    def find_metric(self, metric_filter: JDict) -> MetricDict:
-        """Find a metric in the in-memory store."""
-        results = {}
-        for metric_id, metric_dict in self.memory.items():
-            for filter_key in metric_filter:
-                if metric_dict[filter_key] != metric_filter[filter_key]:
-                    continue
-                metric = Metric.from_dict(metric_dict)
-                results[metric_id] = metric
-        return results

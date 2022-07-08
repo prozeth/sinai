@@ -9,5 +9,5 @@ setup(
     author="andymason,zeth",
     author_email="",
     description="Your friendly neighbourhood monitoring library. Record metrics about whatever you are interested in (e.g. application state, data integrity).",
-    python_requires='>3.8',
+    python_requires=">3.8",
 )

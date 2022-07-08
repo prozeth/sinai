@@ -1,5 +1,6 @@
 """A `Source` provides the input data to the Rule."""
 
+from sinai.adaptors import Memory
 from sinai.types import JDict, MetricList, MonitorInstance
 
 
@@ -8,9 +9,10 @@ class Source:
 
     def __init__(self, monitor: MonitorInstance):
         self.monitor = monitor
+        super().__init__()
 
 
-class MetricSource(Source):
+class MetricSource(Source, Memory):
     """In memory source of Metrics, use an adaptor instead when you need persistence."""
 
     def get(
@@ -36,5 +38,5 @@ class MetricSource(Source):
         return self._execute_query(metric_filter)
 
     def _execute_query(self, metric_filter: JDict) -> MetricList:
-        results = self.monitor.find_metric(metric_filter)
+        results = self.find_metric(metric_filter)
         return list(results.values())

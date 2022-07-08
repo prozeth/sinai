@@ -1,9 +1,10 @@
 """Monitor cat facts."""
-from sinai.adaptors.api import ApiSource
-from sinai.adaptors.mongo import MongoMetricSource, MongoStore
-from sinai.models.metric import Metric
-from sinai.models.monitor import Monitor
-from sinai.models.rule import MetricAggregationRule, Rule
+from sinai.sources.api import ApiSource
+from sinai.sources import MongoMetricSource
+from sinai.stores import MongoMetricStore
+from sinai.metrics import Metric
+from sinai.monitors.monitor import Monitor
+from sinai.rules import MetricAggregationRule, Rule
 
 
 class CatMongoMetricSource(MongoMetricSource):
@@ -11,7 +12,7 @@ class CatMongoMetricSource(MongoMetricSource):
     database_name = "metrics"
 
 
-class CatMongoMetricStore(MongoStore):
+class CatMongoMetricStore(MongoMetricStore):
     connection_string = "mongodb://localhost:27017/"
     database_name = "metrics"
 

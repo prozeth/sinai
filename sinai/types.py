@@ -19,11 +19,11 @@ from uuid import UUID
 from typing_extensions import TypeAlias
 
 if TYPE_CHECKING:  # pragma: no cover
-    from sinai.models.metric import AggregationMetric, Metric  # noqa: F401
-    from sinai.models.monitor import Monitor  # noqa: F401
-    from sinai.models.rule import Rule
-    from sinai.models.source import MetricSource, Source  # noqa: F401
-    from sinai.models.store import Store
+    from sinai.metrics import AggregationMetric, Metric  # noqa: F401
+    from sinai.monitors.monitor import Monitor  # noqa: F401
+    from sinai.rules.base import Rule
+    from sinai.sources.base import MetricSource, Source  # noqa: F401
+    from sinai.stores import Store
 
     try:
         from bson.objectid import ObjectId  # pylint: disable=W0611
