@@ -49,6 +49,7 @@ class MetricAggregationRule(Rule):
     mean: MetricClasses = []
     mode: MetricClasses = []
     median: MetricClasses = []
+    last_only = False
 
     def evaluate(self) -> Evaluation:
         self.metrics: AggregationMetrics = []
@@ -77,7 +78,9 @@ class MetricAggregationRule(Rule):
         metric_instances = []
         source: MetricSourceInstance = self.monitor.source(source_cls)  # type: ignore
         for target_class in getattr(self, aggregation_name):
-            metric_instances.extend(
-                source.get(name=target_class.name, monitor_id=self.monitor.id)
-            )
+            if self.last_only:
+                instances = source.get(name=target_class.name, monitor_id=self.monitor.id)
+            else:
+                instances = source.get(name=target_class.name)
+            metric_instances.extend(instances)
         return metric_instances
