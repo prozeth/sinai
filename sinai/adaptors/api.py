@@ -1,7 +1,7 @@
 """The Api adaptors provide sources and stores using API endpoints.
 Requires the requests library to be installed.
 """
-try
+try:
     import requests  # type: ignore
 except ImportError:
     HAS_REQUESTS = False
