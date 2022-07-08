@@ -2,14 +2,14 @@
 
 from sinai.adaptors import Memory
 from sinai.types import JDict, MetricList, MonitorInstance
+from sinai import BaseView
 
-
-class Source:
+class Source(BaseView):
     """Any data source (base class)."""
 
     def __init__(self, monitor: MonitorInstance):
         self.monitor = monitor
-        super().__init__()
+        super().__init__(monitor)
 
 
 class MetricSource(Source, Memory):

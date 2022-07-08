@@ -8,11 +8,12 @@ except ImportError:
 else:
     HAS_REQUESTS = True
 
+from sinai import BaseView
 from sinai.exceptions import DependencyMissing
 from sinai.types import MonitorInstance, RequestHeader
 
 
-class ApiConnection:
+class ApiConnection(BaseView):
     """Base class to share common connection information between API Stores and Sources"""
 
     url: str = ""
@@ -21,7 +22,7 @@ class ApiConnection:
 
     def __init__(self, monitor: MonitorInstance):
         self.monitor = monitor
-        super().__init__()
+        super().__init__(monitor)
         if not HAS_REQUESTS:
             raise DependencyMissing("Requests library required for API calls.")
         self.requests = requests
